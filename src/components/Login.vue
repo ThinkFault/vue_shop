@@ -53,7 +53,10 @@ export default {
         if (!valid) {
           return false
         }
-        this.$http.post('login', this.loginForm)
+        this.$http.post('addresses', this.loginForm)
+          .then((res) => {
+            console.log(res)
+          })
       })
     }
   }
