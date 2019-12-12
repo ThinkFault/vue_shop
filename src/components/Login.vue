@@ -48,15 +48,15 @@ export default {
       this.$refs.loginFormRef.resetFields()
     },
     login () {
-      this.$refs.loginFormRef.validate(valid => {
+      this.$refs.loginFormRef.validate(async valid => {
         // console.log(valid)
         if (!valid) {
           return false
         }
-        this.$http.post('/addresses', this.loginForm)
-          .then((res) => {
-            console.log(res)
-          })
+        const { data: res } = await this.$http.post('/addresses', this.loginForm)
+        // console.log(res)
+        if (res.meta.status !== 200) return console.log('登录失败')
+        return console.log('登录成功')
       })
     }
   }
