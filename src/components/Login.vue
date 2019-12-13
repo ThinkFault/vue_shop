@@ -27,8 +27,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'zhangsan',
+        password: '111111'
       },
       loginFormRules: {
         username: [
@@ -56,7 +56,11 @@ export default {
         const { data: res } = await this.$http.post('/addresses', this.loginForm)
         // console.log(res)
         if (res.meta.status !== 200) return this.$message.error('登录失败！')
-        return this.$message.success('登录成功！')
+        this.$message.success('登录成功！')
+        console.log(res)
+        // 登录成功后将接口返回值中的token存入到sessionStorage中
+        window.sessionStorage.setItem('token', res.data.token)
+        this.$router.push('/home')
       })
     }
   }
