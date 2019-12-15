@@ -7,11 +7,12 @@
     </div>
     <el-button type="info" @click="logout">退出</el-button></el-header>
   <el-container>
-    <el-aside width="200px">
+    <el-aside :width="isCollapse ? '64px' : '200px'">
+      <div class="toggle-button" @click="toggleCollapse">|||</div>
       <el-menu
       background-color="#333744"
       text-color="#fff"
-      active-text-color="#409EFF" unique-opened>
+      active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false">
       <!-- 一级菜单 -->
       <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
         <template slot="title">
@@ -36,7 +37,8 @@
 export default {
   data () {
     return {
-      menulist: []
+      menulist: [],
+      isCollapse: false
     }
   },
   created () {
@@ -63,6 +65,9 @@ export default {
       // console.log(res)
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.menulist = res.data
+    },
+    toggleCollapse () {
+      this.isCollapse = !this.isCollapse
     }
   }
 }
@@ -97,5 +102,13 @@ export default {
 .el-main {
   background-color: #ddd;
 }
-
+.toggle-button {
+  background-color: #4A5064;
+  font-size:10px;
+  line-height:24px;
+  color:#fff;
+  text-align: center;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}
 </style>
