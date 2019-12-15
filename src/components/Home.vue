@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   created () {
     this.getMenuList()
@@ -42,9 +43,18 @@ export default {
       window.sessionStorage.clear()
       this.$router.push('/login')
     },
-    async getMenuList () {
-      const { data: res } = await this.$http.get('/menus')
-      console.log(res)
+    // async getMenuList () {
+    //   const { data: res } = await this.$http.get('/menus')
+    //   console.log(res)
+    // },
+    getMenuList () {
+      axios.get('/menus')
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 }
