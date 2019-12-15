@@ -11,17 +11,17 @@
       <el-menu
       background-color="#333744"
       text-color="#fff"
-      active-text-color="#ffd04b">
+      active-text-color="#409EFF" unique-opened>
       <!-- 一级菜单 -->
-      <el-submenu index="1">
+      <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <i :class="item.icon"></i>
+          <span>{{ item.authName }}</span>
         </template>
-        <el-menu-item index="1-4-1">
+        <el-menu-item :index="subItem.id +''" v-for="subItem in item.children" :key="subItem.id">
           <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <i class="el-icon-menu"></i>
+          <span>{{ subItem.authName }}</span>
         </template>
         </el-menu-item>
       </el-submenu>
@@ -33,8 +33,12 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
+  data () {
+    return {
+      menulist: []
+    }
+  },
   created () {
     this.getMenuList()
   },
@@ -47,14 +51,18 @@ export default {
     //   const { data: res } = await this.$http.get('/menus')
     //   console.log(res)
     // },
-    getMenuList () {
-      axios.get('/menus')
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    async getMenuList () {
+      // axios.get('/menus')
+      //   .then((res) => {
+      //     console.log(res)
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //   })
+      const { data: res } = await this.$http.get('/menus')
+      // console.log(res)
+      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.menulist = res.data
     }
   }
 }
@@ -82,6 +90,9 @@ export default {
 }
 .el-aside {
   background-color: #333744;
+  .el-menu {
+    border-right:none;
+  }
 }
 .el-main {
   background-color: #ddd;

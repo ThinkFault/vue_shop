@@ -1,17 +1,41 @@
 {
-  "data":{
-    "id":101,
-    "authName":"商品管理",
-    "path":null,
-    "children":[
-      {
-        "id":104,
-        "authName":"商品列表",
-        "path":null,
-        "children":[]
-      }
-    ]
-  },
+  "data":[
+    {
+      "id": 1,
+      "order":1,
+      "path":"users",
+      "authName":"用户管理",
+      "icon":"el-icon-platform-eleme",
+      "children":[
+        {
+          "id":2,
+          "authName":"用户列表",
+          "path":"users",
+          "children":[]
+        }
+      ]
+    },{
+      "id": 3,
+      "order":2,
+      "path":"rights",
+      "authName":"权限管理",
+      "icon":"el-icon-eleme",
+      "children":[
+        {
+          "id":4,
+          "authName":"角色列表",
+          "path":"rights",
+          "children":[]
+        },
+        {
+          "id":5,
+          "authName":"权限列表",
+          "path":"right-sets",
+          "children":[]
+        }
+      ]
+    }
+],
   "meta":{
     "mag":"获取菜单列表成功",
     "status":200
